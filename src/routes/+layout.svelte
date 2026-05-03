@@ -38,14 +38,13 @@
 <style>
   .site-root {
     position: relative;
-    min-height: 100dvh;
-    display: flex;
-    flex-direction: column;
+    height: 100dvh;
+    overflow: hidden;
   }
 
   .main-content {
     position: relative;
     z-index: 10;
-    flex: 1;
+    height: 100%;
   }
 </style>

@@ -1,13 +1,6 @@
 <script lang="ts">
   import { page } from '$app/stores'
-  import { profile } from '$lib/stores/profile'
-  import { ACCENT_COLORS } from '$lib/constants/theme'
-  import type { AccentColor } from '$lib/types'
-
-  const accentOptions = Object.entries(ACCENT_COLORS) as [
-    AccentColor,
-    (typeof ACCENT_COLORS)[AccentColor]
-  ][]
+  import ProfilePanel from '$lib/components/ui/ProfilePanel.svelte'
 
   const navLinks = [
     { href: '/', label: 'Home' },
@@ -34,29 +27,7 @@
       {/each}
     </nav>
 
-    <div class="controls">
-      <button
-        class="icon-btn"
-        on:click={() => profile.setTheme($profile.theme === 'light' ? 'dark' : 'light')}
-        aria-label="Toggle {$profile.theme === 'light' ? 'dark' : 'light'} mode"
-        title="Toggle theme"
-      >
-        {$profile.theme === 'light' ? '◑' : '◐'}
-      </button>
-
-      <div class="color-picker" role="group" aria-label="Accent color">
-        {#each accentOptions as [key, config]}
-          <button
-            class="color-swatch"
-            class:active={$profile.accentColor === key}
-            style="background: {config.hex}"
-            on:click={() => profile.setAccentColor(key)}
-            aria-label="Set accent color to {config.label}"
-            title={config.label}
-          ></button>
-        {/each}
-      </div>
-    </div>
+    <ProfilePanel />
   </div>
 </header>
 
@@ -110,8 +81,7 @@
       background 0.15s ease;
   }
 
-  .nav-link:hover,
-  .nav-link.active {
+  .nav-link:hover {
     color: var(--color-text-primary);
     background: var(--color-border);
   }
@@ -119,62 +89,5 @@
   .nav-link.active {
     background: var(--color-accent);
     color: #fff;
-  }
-
-  .controls {
-    display: flex;
-    align-items: center;
-    gap: 0.625rem;
-  }
-
-  .icon-btn {
-    width: 2rem;
-    height: 2rem;
-    border: 1px solid var(--color-border);
-    background: var(--color-card);
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 0.875rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-text-secondary);
-    box-shadow: var(--shadow-card);
-    transition: transform 0.15s ease;
-  }
-
-  .icon-btn:hover {
-    transform: scale(1.08);
-  }
-
-  .color-picker {
-    display: flex;
-    align-items: center;
-    gap: 0.375rem;
-    background: var(--color-card);
-    border: 1px solid var(--color-border);
-    border-radius: 100px;
-    padding: 0.375rem 0.625rem;
-    box-shadow: var(--shadow-card);
-  }
-
-  .color-swatch {
-    width: 0.9rem;
-    height: 0.9rem;
-    border-radius: 50%;
-    border: 2px solid transparent;
-    cursor: pointer;
-    transition:
-      transform 0.15s ease,
-      border-color 0.15s ease;
-  }
-
-  .color-swatch:hover {
-    transform: scale(1.25);
-  }
-
-  .color-swatch.active {
-    border-color: var(--color-text-primary);
-    transform: scale(1.2);
   }
 </style>

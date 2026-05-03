@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { Shader, Smoke } from 'shaders/svelte'
+  import { Shader, Smoke } from "shaders/svelte";
 
-  export let colorA: string = '#f59e0b'
-  export let colorB: string = '#92400e'
-  export let opacity: number = 0.12
+  export let colorA: string = "#f59e0b";
+  export let colorB: string = "#92400e";
+  export let opacity: number = 0.25;
 </script>
 
 <div class="smoke-wrap" aria-hidden="true" style="--smoke-opacity: {opacity}">
