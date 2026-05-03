@@ -59,18 +59,6 @@ body {
   border-radius: var(--radius-card);
   box-shadow: var(--shadow-card), var(--shadow-card-inset);
   border: 1px solid var(--color-border);
-  transition:
-    box-shadow 0.25s ease,
-    transform 0.25s ease;
-}
-
-.card:hover {
-  box-shadow:
-    0 2px 4px rgba(0, 0, 0, 0.06),
-    0 8px 16px rgba(0, 0, 0, 0.06),
-    0 28px 52px rgba(0, 0, 0, 0.09),
-    var(--shadow-card-inset);
-  transform: translateY(-1px);
 }
 
 /* ─── Focus ──────────────────────────────────────────── */

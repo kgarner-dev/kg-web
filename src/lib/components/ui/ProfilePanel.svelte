@@ -1,14 +1,14 @@
 <script lang="ts">
-  import { profile } from '$lib/stores/profile'
-  import { ACCENT_COLORS } from '$lib/constants/theme'
-  import type { AccentColor } from '$lib/types'
+  import { profile } from "$lib/stores/profile";
+  import { ACCENT_COLORS } from "$lib/constants/theme";
+  import type { AccentColor } from "$lib/types";
 
-  let open = false
+  let open = false;
 
   const accentOptions = Object.entries(ACCENT_COLORS) as [
     AccentColor,
-    (typeof ACCENT_COLORS)[AccentColor]
-  ][]
+    (typeof ACCENT_COLORS)[AccentColor],
+  ][];
 </script>
 
 <div class="profile-root">
@@ -19,35 +19,45 @@
     aria-haspopup="dialog"
     aria-label="Profile settings"
   >
-    <span class="initials">KG</span>
+    <i class="ph-bold ph-user" style="color: #fff;"></i>
   </button>
 
   {#if open}
-    <button class="backdrop" on:click={() => (open = false)} aria-label="Close settings" tabindex="-1"></button>
+    <button
+      class="backdrop"
+      on:click={() => (open = false)}
+      aria-label="Close settings"
+      tabindex="-1"
+    ></button>
 
-    <div class="panel card" role="dialog" aria-label="Profile settings" aria-modal="true">
+    <div
+      class="panel card"
+      role="dialog"
+      aria-label="Profile settings"
+      aria-modal="true"
+    >
       <!-- ─── Appearance ─── -->
       <div class="panel-section">
         <p class="panel-label">Appearance</p>
 
         <!-- Sliding radio toggle -->
         <div class="theme-track" role="radiogroup" aria-label="Color theme">
-          <div class="thumb" class:right={$profile.theme === 'dark'}></div>
+          <div class="thumb" class:right={$profile.theme === "dark"}></div>
           <button
             class="theme-opt"
             role="radio"
-            aria-checked={$profile.theme === 'light'}
-            on:click={() => profile.setTheme('light')}
+            aria-checked={$profile.theme === "light"}
+            on:click={() => profile.setTheme("light")}
           >
-            ☀️ Light
+            Light
           </button>
           <button
             class="theme-opt"
             role="radio"
-            aria-checked={$profile.theme === 'dark'}
-            on:click={() => profile.setTheme('dark')}
+            aria-checked={$profile.theme === "dark"}
+            on:click={() => profile.setTheme("dark")}
           >
-            🌙 Dark
+            Dark
           </button>
         </div>
       </div>
@@ -107,14 +117,6 @@
       0 0 0 3px color-mix(in srgb, var(--color-accent) 20%, transparent);
   }
 
-  .initials {
-    font-family: 'Fraunces', Georgia, serif;
-    font-size: 0.7rem;
-    font-weight: 500;
-    color: #fff;
-    letter-spacing: 0.01em;
-    user-select: none;
-  }
 
   /* ─── Backdrop ─────────────────────────────── */
   .backdrop {
@@ -204,7 +206,7 @@
     text-align: center;
   }
 
-  .theme-opt[aria-checked='true'] {
+  .theme-opt[aria-checked="true"] {
     color: var(--color-text-primary);
   }
 

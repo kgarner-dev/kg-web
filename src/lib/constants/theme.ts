@@ -12,7 +12,7 @@ export const ACCENT_COLORS: Record<AccentColor, AccentColorConfig> = {
     smokeSecondary: '#7c3a20'
   },
   blue: {
-    label: 'Electric Blue',
+    label: 'Blue',
     hex: '#3b82f6',
     smokeSecondary: '#1e3a8a'
   },

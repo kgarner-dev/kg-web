@@ -47,7 +47,7 @@
 <style>
   .hero-wrap {
     width: 100%;
-    max-width: 620px;
+    max-width: 700px;
   }
 
   .placeholder-section {
