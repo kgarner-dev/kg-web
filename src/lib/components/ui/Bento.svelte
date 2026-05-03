@@ -1,6 +1,6 @@
 <script lang="ts">
   // Optional: pass `as` to change the root element for semantics
-  export let as: string = 'div'
+  export let as: string = "div";
 </script>
 
 <svelte:element this={as} class="bento card">

@@ -1,13 +1,13 @@
 <script lang="ts">
-  import { page } from '$app/stores'
-  import ProfilePanel from '$lib/components/ui/ProfilePanel.svelte'
+  import { page } from "$app/stores";
+  import ProfilePanel from "$lib/components/ui/ProfilePanel.svelte";
 
   const navLinks = [
-    { href: '/', label: 'Home' },
-    { href: '/work', label: 'Work' },
-    { href: '/writing', label: 'Writing' },
-    { href: '/contact', label: 'Contact' }
-  ]
+    { href: "/", label: "Home" },
+    { href: "/work", label: "Work" },
+    { href: "/writing", label: "Writing" },
+    { href: "/contact", label: "Contact" },
+  ];
 </script>
 
 <header class="header">
@@ -20,7 +20,7 @@
           href={link.href}
           class="nav-link"
           class:active={$page.url.pathname === link.href}
-          aria-current={$page.url.pathname === link.href ? 'page' : undefined}
+          aria-current={$page.url.pathname === link.href ? "page" : undefined}
         >
           {link.label}
         </a>
@@ -50,9 +50,9 @@
   }
 
   .wordmark {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: "Manrope", sans-serif;
     font-size: 1.25rem;
-    font-weight: 400;
+    font-weight: 800;
     color: var(--color-text-primary);
     text-decoration: none;
     letter-spacing: -0.02em;
