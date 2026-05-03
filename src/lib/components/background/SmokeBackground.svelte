@@ -3,7 +3,7 @@
 
   export let colorA: string = "#f59e0b";
   export let colorB: string = "#92400e";
-  export let opacity: number = 0.25;
+  export let opacity: number = 0.35;
 </script>
 
 <div class="smoke-wrap" aria-hidden="true" style="--smoke-opacity: {opacity}">

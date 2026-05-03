@@ -1,5 +1,6 @@
 <script lang="ts">
   import '../app.css'
+  import { browser } from '$app/environment'
   import { profile } from '$lib/stores/profile'
   import { ACCENT_COLORS } from '$lib/constants/theme'
   import SmokeBackground from '$lib/components/background/SmokeBackground.svelte'
@@ -7,6 +8,9 @@
   import Footer from '$lib/components/layout/Footer.svelte'
 
   $: accent = ACCENT_COLORS[$profile.accentColor]
+
+  // Mirror theme onto <html> so CSS variables cascade correctly to <body>
+  $: if (browser) document.documentElement.setAttribute('data-theme', $profile.theme)
 </script>
 
 <svelte:head>
