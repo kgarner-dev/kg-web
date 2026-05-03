@@ -1,12 +1,16 @@
 <script lang="ts">
-  import { getContext } from 'svelte'
-  import type { Writable } from 'svelte/store'
+  import { getContext } from "svelte";
+  import type { Writable } from "svelte/store";
 
-  export let index: number
+  export let index: number;
 
-  const { current } = getContext<{ current: Writable<number>; goTo: (i: number) => void }>('scroll')
+  const { current } = getContext<{
+    current: Writable<number>;
+    goTo: (i: number) => void;
+  }>("scroll");
 
-  $: state = $current === index ? 'active' : $current > index ? 'above' : 'below'
+  $: state =
+    $current === index ? "active" : $current > index ? "above" : "below";
 </script>
 
 <div class="section {state}" aria-hidden={$current !== index}>
@@ -20,7 +24,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 5.5rem 1.5rem 2rem;
+    padding: 5.5rem 2rem 2rem;
     transition:
       opacity 0.55s ease,
       transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);

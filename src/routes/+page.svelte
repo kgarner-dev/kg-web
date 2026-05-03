@@ -5,13 +5,13 @@
 </script>
 
 <svelte:head>
-  <title>Kaleb Garner — Software Engineer & Builder</title>
+  <title>Kaleb Garner | Product Architect & Technical Lead</title>
 </svelte:head>
 
 <FullPageScroll sectionCount={4}>
   <!-- 0 · Hero ─────────────────────────────────────── -->
   <Section index={0}>
-    <div class="hero-wrap">
+    <div class="page-wrap">
       <Bento as="article">
         <svelte:fragment slot="top">
           <div class="avatar" aria-label="Profile photo">
@@ -39,46 +39,60 @@
 
   <!-- 1 · Work ──────────────────────────────────────── -->
   <Section index={1}>
-    <div class="placeholder-section">
-      <span class="eyebrow">Selected work</span>
-      <h2 class="section-heading">Things I've built.</h2>
-      <p class="section-sub">Projects, systems, and shipped products.</p>
+    <div class="page-wrap">
+      <Bento as="article">
+        <svelte:fragment slot="top">
+          <h2 class="section-heading">Featured Content</h2>
+        </svelte:fragment>
+
+        <svelte:fragment slot="bottom">
+          <p>Example</p>
+        </svelte:fragment>
+      </Bento>
     </div>
   </Section>
 
-  <!-- 2 · Writing ───────────────────────────────────── -->
+  <!-- 2 · Content ───────────────────────────────────── -->
   <Section index={2}>
-    <div class="placeholder-section">
-      <span class="eyebrow">Writing</span>
-      <h2 class="section-heading">Ideas in progress.</h2>
-      <p class="section-sub">
-        Essays on systems, product, and building in public.
-      </p>
+    <div class="page-wrap">
+      <Bento as="article">
+        <svelte:fragment slot="top">
+          <h2 class="section-heading">Featured Work</h2>
+        </svelte:fragment>
+
+        <svelte:fragment slot="bottom">
+          <p>Example</p>
+        </svelte:fragment>
+      </Bento>
     </div>
   </Section>
 
   <!-- 3 · Contact ───────────────────────────────────── -->
   <Section index={3}>
-    <div class="placeholder-section">
-      <span class="eyebrow">Let's talk</span>
-      <h2 class="section-heading">Say something.</h2>
-      <p class="section-sub">
-        Whether you're a developer, founder, or just curious.
-      </p>
+    <div class="page-wrap">
+      <Bento as="article">
+        <svelte:fragment slot="top">
+          <h2 class="section-heading">Let's Connect</h2>
+        </svelte:fragment>
+
+        <svelte:fragment slot="bottom">
+          <p>Example</p>
+        </svelte:fragment>
+      </Bento>
     </div>
   </Section>
 </FullPageScroll>
 
 <style>
   /* ─── Hero ─────────────────────────────────── */
-  .hero-wrap {
+  .page-wrap {
     width: 100%;
-    max-width: 700px;
+    max-width: 1000px;
   }
 
   .avatar {
-    width: 96px;
-    height: 96px;
+    width: 150px;
+    height: 150px;
     border-radius: 16px;
     overflow: hidden;
     border: 1px solid var(--color-border);
@@ -96,7 +110,7 @@
 
   .name {
     font-family: "Manrope", sans-serif;
-    font-size: clamp(2.25rem, 5vw, 3.25rem);
+    font-size: clamp(2.75rem, 7vw, 4.5rem);
     font-weight: 800;
     line-height: 1;
     letter-spacing: -0.025em;
@@ -109,7 +123,6 @@
     line-height: 1.65;
     color: var(--color-text-secondary);
     margin: 0 0 1rem;
-    max-width: 52ch;
   }
 
   .meta {
@@ -134,23 +147,6 @@
     color: var(--color-accent);
   }
 
-  /* ─── Placeholder sections ──────────────────── */
-  .placeholder-section {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.75rem;
-    max-width: 560px;
-  }
-
-  .eyebrow {
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--color-accent);
-  }
-
   .section-heading {
     font-family: "Manrope", sans-serif;
     font-size: clamp(2.75rem, 7vw, 4.5rem);
@@ -159,13 +155,5 @@
     letter-spacing: -0.03em;
     color: var(--color-text-primary);
     margin: 0;
-  }
-
-  .section-sub {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: var(--color-text-secondary);
-    margin: 0;
-    max-width: 40ch;
   }
 </style>

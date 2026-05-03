@@ -4,9 +4,9 @@
 
   const navLinks = [
     { href: "/", label: "Home" },
+    { href: "/about", label: "About" },
+    { href: "/content", label: "Content" },
     { href: "/work", label: "Work" },
-    { href: "/writing", label: "Writing" },
-    { href: "/contact", label: "Contact" },
   ];
 </script>
 
@@ -51,7 +51,7 @@
 
   .wordmark {
     font-family: "Manrope", sans-serif;
-    font-size: 1.25rem;
+    font-size: 2rem;
     font-weight: 800;
     color: var(--color-text-primary);
     text-decoration: none;

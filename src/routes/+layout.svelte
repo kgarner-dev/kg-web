@@ -9,8 +9,12 @@
 
   $: accent = ACCENT_COLORS[$profile.accentColor]
 
-  // Mirror theme onto <html> so CSS variables cascade correctly to <body>
-  $: if (browser) document.documentElement.setAttribute('data-theme', $profile.theme)
+  // <html> is the single source of truth for theme + accent.
+  // The inline script in app.html handles first paint — this handles live changes.
+  $: if (browser) {
+    document.documentElement.setAttribute('data-theme', $profile.theme)
+    document.documentElement.style.setProperty('--color-accent', accent.hex)
+  }
 </script>
 
 <svelte:head>
@@ -23,19 +27,12 @@
   />
 </svelte:head>
 
-<div
-  class="site-root"
-  data-theme={$profile.theme}
-  style="--color-accent: {accent.hex}"
->
+<div class="site-root">
   <SmokeBackground colorA={accent.hex} colorB={accent.smokeSecondary} />
-
   <Header />
-
   <main class="main-content">
     <slot />
   </main>
-
   <Footer />
 </div>
 

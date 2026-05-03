@@ -27,17 +27,7 @@
     flex-direction: column;
     width: 100%;
     overflow: hidden;
-  }
-
-  .bento-top {
-    padding: 2rem 2.25rem 1.75rem;
-  }
-
-  .bento-bottom {
-    padding: 2rem 2.25rem;
-  }
-
-  .bento-body {
-    padding: 2rem 2.25rem;
+    padding: 2rem;
+    gap: 2rem;
   }
 </style>
