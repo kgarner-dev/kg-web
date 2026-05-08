@@ -28,6 +28,6 @@
     width: 100%;
     overflow: hidden;
     padding: 2rem;
-    gap: 2rem;
+    gap: 1rem;
   }
 </style>
