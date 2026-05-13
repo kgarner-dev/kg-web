@@ -29,6 +29,7 @@
     "git": "^0.1.5",
     "gray-matter": "^4.0.3",
     "marked": "^18.0.3",
-    "shaders": "^2.5.0"
+    "shaders": "^2.5.0",
+    "svelte-awesome-color-picker": "^4.1.0"
   }
 }

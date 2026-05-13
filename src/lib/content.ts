@@ -1,18 +1,14 @@
 import matter from 'gray-matter'
 import { marked } from 'marked'
-import type { Post, PostMeta, TocItem, Project, ProjectMeta } from '$lib/types'
+import type { TocItem, ContentItem, ContentItemFull } from '$lib/types'
 
-const postFiles = import.meta.glob('/src/content/posts/*.md', {
+const postFiles = import.meta.glob('/src/content/*.md', {
   query: '?raw',
   import: 'default',
   eager: true
 }) as Record<string, string>
 
-const projectFiles = import.meta.glob('/src/content/projects/*/index.md', {
-  query: '?raw',
-  import: 'default',
-  eager: true
-}) as Record<string, string>
+// ─── Helpers ─────────────────────────────────────────────
 
 function slugify(text: string): string {
   return text
@@ -43,119 +39,50 @@ function makeRenderer() {
   return renderer
 }
 
-function slugFromProjectPath(path: string): string {
-  const parts = path.split('/')
-  return parts[parts.indexOf('projects') + 1]
+function normalizeTags(tags: unknown): string[] {
+  return Array.isArray(tags) ? tags.map((t) => String(t).toLowerCase()) : []
 }
 
-// ─── Posts ───────────────────────────────────────────────
+// ─── Content ─────────────────────────────────────────────
 
-export function getAllPosts(): PostMeta[] {
+export function getAllContent(): ContentItem[] {
   return Object.values(postFiles)
     .map((raw) => {
       const { data, content } = matter(raw)
       return {
-        title: data.title ?? '',
         slug: data.slug ?? '',
-        type: data.type ?? 'post',
+        title: data.title ?? '',
         date: data.date ?? '',
+        tags: normalizeTags(data.tags),
         status: data.status ?? 'draft',
-        tags: data.tags ?? [],
         summary: data.summary ?? '',
         readingTime: calcReadingTime(content),
-        featured: data.featured ?? false,
-        project: data.project,
-        linkedin_url: data.linkedin_url ?? ''
-      } satisfies PostMeta
+        preview_image: data.preview_image,
+        links: data.links ?? undefined
+      } satisfies ContentItem
     })
-    .filter((p) => p.status === 'published')
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 }
 
-export function getPost(slug: string): Post | undefined {
+export function getContentItem(slug: string): ContentItemFull | undefined {
   const raw = Object.values(postFiles).find((r) => matter(r).data.slug === slug)
   if (!raw) return undefined
   const { data, content } = matter(raw)
-  if ((data.status ?? 'draft') !== 'published') return undefined
   return {
-    title: data.title ?? '',
     slug: data.slug ?? '',
-    type: data.type ?? 'post',
+    title: data.title ?? '',
     date: data.date ?? '',
+    tags: normalizeTags(data.tags),
     status: data.status ?? 'draft',
-    tags: data.tags ?? [],
     summary: data.summary ?? '',
     readingTime: calcReadingTime(content),
-    featured: data.featured ?? false,
-    project: data.project,
-    linkedin_url: data.linkedin_url ?? '',
+    preview_image: data.preview_image,
+    links: data.links ?? undefined,
     html: marked(content, { renderer: makeRenderer() }) as string,
     toc: extractToc(content)
   }
 }
 
-export function getFeaturedPosts(limit = 3): PostMeta[] {
-  return getAllPosts().filter((p) => p.featured).slice(0, limit)
-}
-
-export function getAllTags(): string[] {
-  return [...new Set(getAllPosts().flatMap((p) => p.tags))].sort()
-}
-
-// ─── Projects ────────────────────────────────────────────
-
-export function getAllProjects(): ProjectMeta[] {
-  return Object.entries(projectFiles)
-    .map(([path, raw]) => {
-      const { data } = matter(raw)
-      return {
-        title: data.title ?? '',
-        slug: data.slug ?? slugFromProjectPath(path),
-        type: 'project' as const,
-        status: data.status ?? 'active',
-        summary: data.summary ?? '',
-        live_url: data.live_url,
-        repo_url: data.repo_url,
-        tags: data.tags ?? [],
-        tech: data.tech ?? [],
-        featured: data.featured ?? false,
-        date: data.date ?? ''
-      } satisfies ProjectMeta
-    })
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-}
-
-export function getProject(slug: string): Project | undefined {
-  const entry = Object.entries(projectFiles).find(([path, raw]) => {
-    const { data } = matter(raw)
-    return (data.slug ?? slugFromProjectPath(path)) === slug
-  })
-  if (!entry) return undefined
-  const [, raw] = entry
-  const { data, content } = matter(raw)
-
-  const posts = getAllPosts()
-    .filter((p) => p.project === slug)
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-
-  return {
-    title: data.title ?? '',
-    slug: data.slug ?? slug,
-    type: 'project' as const,
-    status: data.status ?? 'active',
-    summary: data.summary ?? '',
-    live_url: data.live_url,
-    repo_url: data.repo_url,
-    tags: data.tags ?? [],
-    tech: data.tech ?? [],
-    featured: data.featured ?? false,
-    date: data.date ?? '',
-    html: marked(content, { renderer: makeRenderer() }) as string,
-    toc: extractToc(content),
-    posts
-  }
-}
-
-export function getFeaturedProjects(limit = 3): ProjectMeta[] {
-  return getAllProjects().filter((p) => p.featured).slice(0, limit)
+export function getRecentContent(limit = 5): ContentItem[] {
+  return getAllContent().slice(0, limit)
 }

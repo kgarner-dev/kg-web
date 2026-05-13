@@ -1,8 +1,13 @@
 <script lang="ts">
   export let as: string = "div";
+  export let variant: "glass" | "accent" = "glass";
 </script>
 
-<svelte:element this={as} class="bento card">
+<svelte:element
+  this={as}
+  class="bento card"
+  class:card--accent={variant === "accent"}
+>
   {#if $$slots.top}
     <div class="bento-top">
       <slot name="top" />
@@ -27,7 +32,7 @@
     flex-direction: column;
     width: 100%;
     overflow: hidden;
-    padding: 2rem;
-    gap: 1rem;
+    padding: 1.75rem;
+    gap: 1.25rem;
   }
 </style>

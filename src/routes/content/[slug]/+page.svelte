@@ -1,23 +1,62 @@
 <script lang="ts">
-  import Bento from '$lib/components/ui/Bento.svelte'
-  import type { PageData } from './$types'
+  import Bento from "$lib/components/ui/Bento.svelte";
+  import type { PageData } from "./$types";
 
-  let { data }: { data: PageData } = $props()
+  let { data }: { data: PageData } = $props();
 
-  const hasToc = $derived(data.post.toc.length > 2)
+  const hasToc = $derived(data.item.toc.length > 2);
+  const linkEntries = $derived(Object.entries(data.item.links ?? {}));
+
+  const PLATFORMS: Record<string, { label: string; icon: string }> = {
+    youtube: { label: "YouTube", icon: "ph-youtube-logo" },
+    podcast: { label: "Podcast", icon: "ph-microphone-stage" },
+    github: { label: "GitHub", icon: "ph-github-logo" },
+    linkedin: { label: "LinkedIn", icon: "ph-linkedin-logo" },
+    twitter: { label: "Twitter", icon: "ph-x-logo" },
+    x: { label: "X", icon: "ph-x-logo" },
+    instagram: { label: "Instagram", icon: "ph-instagram-logo" },
+    devto: { label: "Dev.to", icon: "ph-dev-to-logo" },
+    twitch: { label: "Twitch", icon: "ph-twitch-logo" },
+    medium: { label: "Medium", icon: "ph-medium-logo" },
+    spotify: { label: "Spotify", icon: "ph-spotify-logo" },
+    website: { label: "Website", icon: "ph-globe" },
+    live: { label: "Live", icon: "ph-arrow-square-out" },
+    slides: { label: "Slides", icon: "ph-presentation" },
+    article: { label: "Article", icon: "ph-newspaper" },
+  };
+
+  function platform(key: string) {
+    return PLATFORMS[key.toLowerCase()] ?? { label: key, icon: "ph-link" };
+  }
+
+  function youtubeId(url: string): string | null {
+    const m = url.match(
+      /(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([a-zA-Z0-9_-]{11})/,
+    );
+    return m?.[1] ?? null;
+  }
+
+  const embedId = $derived(
+    data.item.links?.youtube ? youtubeId(data.item.links.youtube) : null,
+  );
+
+  const contentLabel = $derived(embedId ? "Transcript" : "Article");
 
   function formatDate(d: string) {
-    return new Date(d).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    })
+    return new Date(d).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
   }
 </script>
 
 <svelte:head>
-  <title>{data.post.title} — Kaleb Garner</title>
-  <meta name="description" content={data.post.summary} />
+  <title>Kaleb Garner | {data.item.title}</title>
+  <meta name="description" content={data.item.summary} />
+  {#if data.item.preview_image}
+    <meta property="og:image" content={data.item.preview_image} />
+  {/if}
 </svelte:head>
 
 <div class="outer">
@@ -30,9 +69,9 @@
           </svelte:fragment>
           <svelte:fragment slot="bottom">
             <ul class="toc-list">
-              {#each data.post.toc as item}
-                <li class:indent={item.level === 3}>
-                  <a href="#{item.id}" class="toc-link">{item.text}</a>
+              {#each data.item.toc as entry}
+                <li class:indent={entry.level === 3}>
+                  <a href="#{entry.id}" class="toc-link">{entry.text}</a>
                 </li>
               {/each}
             </ul>
@@ -45,36 +84,76 @@
       <Bento as="header">
         <svelte:fragment slot="top">
           <div class="row">
-            <a href="/content" class="back">← Writing</a>
+            <a href="/content" class="back">← All content</a>
             <div class="post-meta">
-              <time>{formatDate(data.post.date)}</time>
-              <span class="dot">·</span>
-              <span>{data.post.readingTime} min read</span>
+              <time>{formatDate(data.item.date)}</time>
+              {#if data.item.readingTime > 0}
+                <span class="dot">·</span>
+                <span>{data.item.readingTime} min read</span>
+              {/if}
             </div>
           </div>
         </svelte:fragment>
         <svelte:fragment slot="bottom">
-          <h1 class="post-title">{data.post.title}</h1>
-          <p class="post-summary">{data.post.summary}</p>
+          {#if data.item.preview_image}
+            <img src={data.item.preview_image} alt="" class="preview-image" />
+          {/if}
+          <h1 class="post-title">{data.item.title}</h1>
+          <p class="post-summary">{data.item.summary}</p>
           <div class="post-footer">
             <div class="post-tags">
-              {#each data.post.tags as tag}
-                <a href="/content?tag={tag}" class="tag">{tag}</a>
+              {#each data.item.tags as tag}
+                <a href="/content?tag={encodeURIComponent(tag)}" class="tag"
+                  >{tag}</a
+                >
               {/each}
             </div>
-            {#if data.post.linkedin_url}
-              <a href={data.post.linkedin_url} target="_blank" rel="noopener noreferrer" class="li-link">LinkedIn →</a>
+            {#if linkEntries.length > 0}
+              <div class="post-links">
+                {#each linkEntries as [key, url]}
+                  {@const p = platform(key)}
+                  <a
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="link-btn"
+                    aria-label={p.label}
+                  >
+                    <i class="ph-bold {p.icon}"></i>
+                    {p.label}
+                  </a>
+                {/each}
+              </div>
             {/if}
           </div>
         </svelte:fragment>
       </Bento>
 
+      {#if embedId}
+        <Bento>
+          <svelte:fragment slot="top">
+            <span class="eyebrow">Video</span>
+          </svelte:fragment>
+          <svelte:fragment slot="bottom">
+            <div class="embed-wrap">
+              <iframe
+                src="https://www.youtube.com/embed/{embedId}"
+                title={data.item.title}
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </svelte:fragment>
+        </Bento>
+      {/if}
+
       <Bento as="article">
         <svelte:fragment slot="top">
-          <span class="eyebrow">Article</span>
+          <span class="eyebrow">{contentLabel}</span>
         </svelte:fragment>
         <svelte:fragment slot="bottom">
-          <div class="prose">{@html data.post.html}</div>
+          <div class="prose">{@html data.item.html}</div>
         </svelte:fragment>
       </Bento>
     </div>
@@ -82,12 +161,6 @@
 </div>
 
 <style>
-  .outer {
-    padding: 6rem 2rem 6rem;
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-
   .layout {
     display: grid;
     grid-template-columns: 1fr;
@@ -103,7 +176,7 @@
 
   .toc-sidebar {
     position: sticky;
-    top: 6rem;
+    top: calc(var(--header-h, 64px) + 1rem);
   }
 
   .main {
@@ -130,7 +203,9 @@
     gap: 0.25rem;
   }
 
-  .toc-list li.indent { padding-left: 0.875rem; }
+  .toc-list li.indent {
+    padding-left: 0.875rem;
+  }
 
   .toc-link {
     font-size: 0.8rem;
@@ -142,7 +217,9 @@
     transition: color 0.15s ease;
   }
 
-  .toc-link:hover { color: var(--color-accent); }
+  .toc-link:hover {
+    color: var(--color-accent);
+  }
 
   /* Header card */
   .row {
@@ -161,7 +238,9 @@
     transition: color 0.15s ease;
   }
 
-  .back:hover { color: var(--color-accent); }
+  .back:hover {
+    color: var(--color-accent);
+  }
 
   .post-meta {
     display: flex;
@@ -171,10 +250,12 @@
     color: var(--color-text-secondary);
   }
 
-  .dot { opacity: 0.4; }
+  .dot {
+    opacity: 0.4;
+  }
 
   .post-title {
-    font-family: 'Manrope', sans-serif;
+    font-family: "Manrope", sans-serif;
     font-size: clamp(1.75rem, 4vw, 2.75rem);
     font-weight: 800;
     line-height: 1.1;
@@ -190,43 +271,84 @@
     margin: 0 0 1.25rem;
   }
 
+  .preview-image {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 1.25rem;
+    border: 1px solid var(--color-border);
+  }
+
   .post-footer {
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
+    gap: 0.875rem;
+  }
+
+  .post-tags {
+    display: flex;
     flex-wrap: wrap;
-    gap: 0.75rem;
+    gap: 0.375rem;
   }
 
-  .post-tags { display: flex; flex-wrap: wrap; gap: 0.375rem; }
+  .post-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
 
-  .tag {
-    font-size: 0.7rem;
-    font-weight: 600;
-    padding: 0.2rem 0.6rem;
+  .link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.875rem;
     border-radius: 999px;
-    background: color-mix(in srgb, var(--color-accent) 10%, transparent);
-    color: var(--color-accent);
-    text-decoration: none;
-    transition: opacity 0.15s ease;
-  }
-
-  .tag:hover { opacity: 0.75; }
-
-  .li-link {
-    font-size: 0.75rem;
+    border: 1px solid var(--color-border);
+    background: var(--color-bg);
+    font-size: 0.8125rem;
     font-weight: 600;
-    color: #0a66c2;
+    color: var(--color-text-secondary);
     text-decoration: none;
-    transition: opacity 0.15s ease;
-    flex-shrink: 0;
+    white-space: nowrap;
+    transition:
+      border-color 0.15s ease,
+      color 0.15s ease,
+      background 0.15s ease;
   }
 
-  .li-link:hover { opacity: 0.75; }
+  .link-btn i {
+    font-size: 1rem;
+  }
+
+  .link-btn:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    background: color-mix(in srgb, var(--color-accent) 8%, var(--color-bg));
+  }
+
+  /* Video embed */
+  .embed-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: calc(var(--radius-card) - 4px);
+    overflow: hidden;
+    background: #000;
+  }
+
+  .embed-wrap iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
 
   /* Prose */
   .prose :global(h2) {
-    font-family: 'Manrope', sans-serif;
+    font-family: "Manrope", sans-serif;
     font-size: 1.5rem;
     font-weight: 800;
     line-height: 1.2;
@@ -236,7 +358,7 @@
   }
 
   .prose :global(h3) {
-    font-family: 'Manrope', sans-serif;
+    font-family: "Manrope", sans-serif;
     font-size: 1.125rem;
     font-weight: 700;
     letter-spacing: -0.01em;
@@ -251,7 +373,8 @@
     margin: 0 0 1.25rem;
   }
 
-  .prose :global(ul), .prose :global(ol) {
+  .prose :global(ul),
+  .prose :global(ol) {
     padding-left: 1.5rem;
     margin: 0 0 1.25rem;
   }
@@ -263,8 +386,13 @@
     margin-bottom: 0.375rem;
   }
 
-  .prose :global(strong) { font-weight: 700; color: var(--color-text-primary); }
-  .prose :global(em) { font-style: italic; }
+  .prose :global(strong) {
+    font-weight: 700;
+    color: var(--color-text-primary);
+  }
+  .prose :global(em) {
+    font-style: italic;
+  }
 
   .prose :global(a) {
     color: var(--color-accent);
@@ -281,7 +409,7 @@
   }
 
   .prose :global(code) {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: "JetBrains Mono", monospace;
     font-size: 0.875em;
     background: var(--color-card);
     border: 1px solid var(--color-border);
@@ -313,7 +441,8 @@
     font-size: 0.875rem;
   }
 
-  .prose :global(th), .prose :global(td) {
+  .prose :global(th),
+  .prose :global(td) {
     padding: 0.625rem 0.875rem;
     border: 1px solid var(--color-border);
     text-align: left;
@@ -325,7 +454,9 @@
     color: var(--color-text-primary);
   }
 
-  .prose :global(td) { color: var(--color-text-secondary); }
+  .prose :global(td) {
+    color: var(--color-text-secondary);
+  }
 
   .prose :global(img) {
     max-width: 100%;

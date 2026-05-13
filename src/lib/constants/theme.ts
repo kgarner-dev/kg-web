@@ -1,24 +1,9 @@
-import type { AccentColor, AccentColorConfig } from '$lib/types'
-
-export const ACCENT_COLORS: Record<AccentColor, AccentColorConfig> = {
-  amber: {
-    label: 'Amber',
-    hex: '#f59e0b',
-    smokeSecondary: '#92400e'
-  },
-  clay: {
-    label: 'Clay',
-    hex: '#c4704f',
-    smokeSecondary: '#7c3a20'
-  },
-  blue: {
-    label: 'Blue',
-    hex: '#3b82f6',
-    smokeSecondary: '#1e3a8a'
-  },
-  sage: {
-    label: 'Sage',
-    hex: '#6b8f6e',
-    smokeSecondary: '#2d4a30'
-  }
-}
+// Predefined accent swatches — kept for reference, not used in the color system anymore.
+// The active accent color is a free hex string stored in the profile store.
+export const PRESET_COLORS = {
+  green: '#22c55e',
+  amber: '#f59e0b',
+  clay: '#c4704f',
+  blue: '#3b82f6',
+  neon: '#39ff14'
+} as const
