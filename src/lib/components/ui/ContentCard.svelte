@@ -59,12 +59,16 @@
   }
 
   .image-wrap {
-    width: 20%;
+    width: 0;
     aspect-ratio: 1;
     flex-shrink: 0;
     overflow: hidden;
     border-radius: calc(var(--radius-card) - 1px) 0 0
       calc(var(--radius-card) - 1px);
+
+    @media screen and (min-width: 768px) {
+      width: 20%;
+    }
   }
 
   .image {

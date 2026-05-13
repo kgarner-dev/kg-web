@@ -1,15 +1,15 @@
 <script lang="ts">
-  import { enhance } from '$app/forms'
-
   let { open = $bindable(false) }: { open: boolean } = $props()
 
   let dialog: HTMLDialogElement | null = $state(null)
   let success = $state(false)
   let submitting = $state(false)
+  let errorMsg = $state('')
 
   $effect(() => {
     if (open) {
       success = false
+      errorMsg = ''
       dialog?.showModal()
     }
   })
@@ -21,6 +21,30 @@
 
   function onDialogClick(e: MouseEvent) {
     if (e.target === dialog) close()
+  }
+
+  async function handleSubmit(e: SubmitEvent) {
+    e.preventDefault()
+    submitting = true
+    errorMsg = ''
+    const form = e.currentTarget as HTMLFormElement
+    try {
+      const res = await fetch('https://formspree.io/f/mpqbeqkl', {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' }
+      })
+      if (res.ok) {
+        success = true
+      } else {
+        const json = await res.json()
+        errorMsg = json.errors?.[0]?.message ?? 'Something went wrong. Please try again.'
+      }
+    } catch {
+      errorMsg = 'Something went wrong. Please try again.'
+    } finally {
+      submitting = false
+    }
   }
 </script>
 
@@ -46,22 +70,7 @@
         </button>
       </div>
 
-      <form
-        method="POST"
-        action="/?/contact"
-        use:enhance={() => {
-          submitting = true
-          return async ({ result, update }) => {
-            submitting = false
-            if (result.type === 'success') {
-              success = true
-            } else {
-              await update()
-            }
-          }
-        }}
-        class="form"
-      >
+      <form class="form" onsubmit={handleSubmit}>
         <div class="field-row">
           <div class="field">
             <label for="cf-name" class="label">Name</label>
@@ -115,6 +124,10 @@
             required
           ></textarea>
         </div>
+
+        {#if errorMsg}
+          <p class="form-error">{errorMsg}</p>
+        {/if}
 
         <div class="form-footer">
           <button type="button" class="btn-ghost" onclick={close}>Cancel</button>
@@ -248,6 +261,12 @@
   .textarea {
     resize: vertical;
     min-height: 100px;
+  }
+
+  .form-error {
+    font-size: 0.8125rem;
+    color: #ef4444;
+    margin: 0;
   }
 
   /* ── Footer ──────────────────────────────────────────────── */

@@ -1,24 +1,26 @@
 <script lang="ts">
-  import { page } from '$app/stores'
-  import ProfilePanel from '$lib/components/ui/ProfilePanel.svelte'
+  import { page } from "$app/stores";
+  import ProfilePanel from "$lib/components/ui/ProfilePanel.svelte";
 
   interface Tag {
-    name: string
-    count: number
+    name: string;
+    count: number;
   }
 
   interface Props {
-    tags?: Tag[]
+    tags?: Tag[];
   }
 
-  let { tags = [] }: Props = $props()
+  let { tags = [] }: Props = $props();
 
-  let menuOpen = $state(false)
+  let menuOpen = $state(false);
 
-  let activeTag = $derived($page.url.searchParams.get('tag')?.toLowerCase() ?? null)
+  let activeTag = $derived(
+    $page.url.searchParams.get("tag")?.toLowerCase() ?? null,
+  );
 
   function closeMenu() {
-    menuOpen = false
+    menuOpen = false;
   }
 </script>
 
@@ -43,7 +45,12 @@
 {#if menuOpen}
   <div class="modal-backdrop" role="presentation" onclick={closeMenu}></div>
 
-  <div class="modal-panel card" role="dialog" aria-modal="true" aria-label="Navigation">
+  <div
+    class="modal-panel card"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Navigation"
+  >
     <div class="modal-header">
       <span class="modal-title">Topics</span>
       <button class="modal-close" onclick={closeMenu} aria-label="Close">
@@ -94,7 +101,7 @@
   }
 
   .wordmark {
-    font-family: 'Manrope', sans-serif;
+    font-family: "Manrope", sans-serif;
     font-size: 1.5rem;
     font-weight: 800;
     color: var(--color-text-primary);
@@ -114,7 +121,6 @@
     height: 2.125rem;
     border-radius: 8px;
     border: 1px solid var(--color-border);
-    background: var(--color-card);
     cursor: pointer;
     align-items: center;
     justify-content: center;
@@ -158,7 +164,7 @@
   }
 
   .modal-title {
-    font-family: 'Manrope', sans-serif;
+    font-family: "Manrope", sans-serif;
     font-size: 0.875rem;
     font-weight: 700;
     color: var(--color-text-primary);
