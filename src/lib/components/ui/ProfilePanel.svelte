@@ -257,7 +257,6 @@
   }
 
   .profile-btn:hover {
-    transform: scale(1.07);
     opacity: 0.85;
   }
 
@@ -504,7 +503,9 @@
     padding: 0.4375rem 1rem;
     width: 100%;
     text-align: center;
-    transition: background 0.15s ease, color 0.15s ease;
+    transition:
+      background 0.15s ease,
+      color 0.15s ease;
   }
 
   .reset-btn:hover {
