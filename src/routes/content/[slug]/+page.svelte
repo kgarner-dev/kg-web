@@ -378,8 +378,14 @@
     margin: 0 0 1.25rem;
   }
 
-  .prose :global(ul),
+  .prose :global(ul) {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    margin: 0 0 1.25rem;
+  }
+
   .prose :global(ol) {
+    list-style-type: decimal;
     padding-left: 1.5rem;
     margin: 0 0 1.25rem;
   }

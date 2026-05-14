@@ -11,3 +11,6 @@ This is just a idea dump for concepts or projects that I am interested in buildi
 
 ## The Cool Project Checklist
 - [ ] Chess platform that takes historical game data, trains a model on the moves and outcomes, and gives you the opportunity to play against that version of the player. How does your gameplay change from three months ago to today?
+- [ ] Better PDF handling within the browser because the current state sucks...
+- [ ] What if a terminal acted like a text area...
+- [ ] Extension to implement "sandboxed" tabs within an IDE
