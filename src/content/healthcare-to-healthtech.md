@@ -3,8 +3,10 @@ title: "Healthcare to Healthtech: My Developer Journey"
 slug: "healthcare-to-healthtech"
 date: "2025-10-04"
 tags: [blog, career, personal]
-preview_image: /images/healthcare-to-healthtech.jpg
+preview_image: /images/healthcare-to-healthtech.webp
 summary: "From a career-ending knee injury in my first semester of college to leading development for healthcare organizations serving 40,000+ patients daily, there were many bumps in the road in my tech journey. In this article, I walk through how I went from the front desk of an optometry office to a software engineer in healthtech, and what the transition from thinking about healthcare as a patient to building for it as an engineer actually looks like."
+links:
+    devto: "https://dev.to/kgthedev/healthcare-to-healthtech-my-developer-journey-27"
 ---
 
 When I left high school, I had two paths in mind: MLB or medical school. I had played baseball my entire life, and I was raised in a family that was deeply ingrained in healthcare, so those seemed like my natural path forward.

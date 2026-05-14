@@ -18,7 +18,7 @@
   <Bento as="section">
     <svelte:fragment slot="top">
       <div class="avatar" aria-label="Profile photo">
-        <img src="/images/headshot.jpg" alt="Headshot of Kaleb Garner" />
+        <img src="/images/headshot.webp" alt="Headshot of Kaleb Garner" width="400" height="400" />
       </div>
     </svelte:fragment>
     <svelte:fragment slot="bottom">

@@ -11,7 +11,7 @@
 <a href="/content/{item.slug}" class="card content-card">
   <div class="image-wrap">
     {#if item.preview_image}
-      <img src={item.preview_image} alt="" class="image" />
+      <img src={item.preview_image} alt={item.title} class="image" loading="lazy" />
     {:else}
       <div class="image-placeholder"></div>
     {/if}

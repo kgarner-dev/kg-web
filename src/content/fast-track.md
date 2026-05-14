@@ -3,8 +3,10 @@ title: "What 4 Years on the Fast Track Taught Me About My Career: From Dropping 
 slug: "fast-track"
 date: "2025-12-23"
 tags: [blog, career, personal]
-preview_image: /images/fast-track.jpg
+preview_image: /images/fast-track.webp
 summary: "Four years is all it took to go from college-dropout to technical lead and software engineer. From working in an optomertry office studying code during my lunch breaks to leading transformations of systems that served tens of thousands of users on a daily basis. Here are all of the lessons, takeaways, pros and cons of moving fast in my tech career."
+links:
+    devto: "https://dev.to/kgthedev/what-4-years-on-the-fast-track-taught-me-about-my-career-from-dropping-out-to-leading-a-production-58fi"
 ---
 
 Four years ago, I was living with my parents, working as an assistant at an optometry office, with zero clue what I was going to do for the rest of my life. This year, I have designed websites for large medical practices serving 40,000+ patients daily, led an architecture transformation that reduced system failures from 1000+ per week to less than 10, and spoken at two conferences.

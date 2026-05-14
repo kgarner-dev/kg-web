@@ -3,8 +3,10 @@ title: "Relational Memory in LLMs"
 slug: "r-memory"
 date: "2025-12-07"
 tags: [blog, ai]
-preview_image: /images/r-memory.jpg
+preview_image: /images/r-memory.webp
 summary: "LLMs are great at reasoning... but they can't be utilized as a database. In high-stakes fields like medicine, trusting a model's context window isn't just unreliable, but extremely dangerous. Enter Relational Memory architecture, a pattern for making critical details persistent, structured, and immune to context window overflow."
+links:
+    devto: "https://dev.to/kgthedev/relational-memory-in-llms-how-relational-memory-solves-finite-context-ej5"
 ---
 
 Have you ever noticed that LLMs have a hard time remembering smaller, specific details? You could go from a highly productive, multi-turn conversation to a complete change in direction when the model forgets a crucial piece of information mentioned just a few minutes ago. This isn't a quirk; it is an architectural flaw. While LLMs are great with reasoning, they should not be utilized as a database.

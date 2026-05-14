@@ -2,8 +2,8 @@
   <div class="footer-inner">
     <p class="copyright">© {new Date().getFullYear()} Kaleb Garner</p>
     <nav class="links" aria-label="Social links">
-      <a href="https://github.com/kgarner-dev" target="_blank">GitHub</a>
-      <a href="https://linkedin.com/in/kalebgarner" target="_blank">LinkedIn</a>
+      <a href="https://github.com/kgarner-dev" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://linkedin.com/in/kalebgarner" target="_blank" rel="noopener noreferrer">LinkedIn</a>
     </nav>
   </div>
 </footer>

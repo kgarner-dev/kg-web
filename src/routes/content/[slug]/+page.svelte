@@ -96,7 +96,12 @@
         </svelte:fragment>
         <svelte:fragment slot="bottom">
           {#if data.item.preview_image}
-            <img src={data.item.preview_image} alt="" class="preview-image" />
+            <img
+              src={data.item.preview_image}
+              alt={data.item.title}
+              class="preview-image"
+              loading="lazy"
+            />
           {/if}
           <h1 class="post-title">{data.item.title}</h1>
           <p class="post-summary">{data.item.summary}</p>

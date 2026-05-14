@@ -3,8 +3,10 @@ title: "Avoid Developer Tunnel Vision"
 slug: "tunnel-vision"
 date: "2025-02-03"
 tags: [blog, career]
-preview_image: /images/tunnel-vision.jpg
+preview_image: /images/tunnel-vision.webp
 summary: "Have you ever solves a problem so thoroughly that you created three new problems in the process? That is Developer Tunnel Vision, and it's more common than most devlopers would admit. I share a story from early in my career that taught me how hyper-focusing on one dimension of a problem can blind you from the health of the entire system, and how you can start thinking in systems intead of just tickets."
+links:
+    devto: "https://dev.to/kgthedev/avoid-developer-tunnel-vision-548f"
 ---
 
 Let me start with a story from early on in my career: I was building a homepage for a client, and instantly came up with an intricate design for their homepage. I was meeting with seniors on my team to come up with ideas, constantly shifting property values by decimals to try to get the effect I wanted, and spending countless hours researching.
@@ -58,7 +60,7 @@ A simple answer to a simple question: because having a bigger perspective *helps
 
 ## The Different Hats Developers Should Wear
 
-![Photo by Good Free Photos on Unsplash](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/tsdrbiivqvezidlfx11f.jpg)
+![Photo by Good Free Photos on Unsplash](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/tsdrbiivqvezidlfx11f.webp)
 *Photo by Good Free Photos on Unsplash*
 
 I think a fun way to think about and remember the areas that developers should be thinking about when building solutions is through the use of hats. I'm sure you've heard the term "wear many hats", but let's take a look at the hats that encompass who our solutions affect the most:

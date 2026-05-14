@@ -30,7 +30,7 @@
 <div class="site-root">
   <Header tags={data.tags} />
 
-  <div class="main-section">
+  <main class="main-section">
     <div class="page-grid">
       <div class="content-col">
         {#key $page.url.pathname}
@@ -42,7 +42,7 @@
 
       <Sidebar tags={data.tags} />
     </div>
-  </div>
+  </main>
 
   <Footer />
 </div>
@@ -55,7 +55,7 @@
     flex-direction: column;
   }
 
-  .main-section {
+  main.main-section {
     flex: 1;
   }
 
