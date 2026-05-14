@@ -9,9 +9,12 @@
   import Header from "$lib/components/layout/Header.svelte";
   import Sidebar from "$lib/components/layout/Sidebar.svelte";
   import Footer from "$lib/components/layout/Footer.svelte";
+  import { dev } from "$app/environment";
+  import { injectAnalytics } from "@vercel/analytics/sveltekit";
   import { injectSpeedInsights } from "@vercel/speed-insights/sveltekit";
 
   injectSpeedInsights();
+  injectAnalytics({ mode: dev ? "development" : "production" });
   let { data, children }: { data: LayoutData; children: Snippet } = $props();
 
   $effect(() => {
