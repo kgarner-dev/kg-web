@@ -9,22 +9,33 @@
   import Header from "$lib/components/layout/Header.svelte";
   import Sidebar from "$lib/components/layout/Sidebar.svelte";
   import Footer from "$lib/components/layout/Footer.svelte";
+  import { injectSpeedInsights } from "@vercel/speed-insights/sveltekit";
 
+  injectSpeedInsights();
   let { data, children }: { data: LayoutData; children: Snippet } = $props();
 
   $effect(() => {
     if (browser) {
       document.documentElement.setAttribute("data-theme", $profile.theme);
-      document.documentElement.style.setProperty("--color-accent", $profile.accentColor);
+      document.documentElement.style.setProperty(
+        "--color-accent",
+        $profile.accentColor,
+      );
     }
   });
 </script>
 
 <svelte:head>
   <title>Kaleb Garner</title>
-  <meta name="description" content="Software engineer and technical builder based in Dallas, TX." />
+  <meta
+    name="description"
+    content="Software engineer and technical builder based in Dallas, TX."
+  />
   <meta property="og:title" content="Kaleb Garner" />
-  <meta property="og:description" content="Software engineer and technical builder based in Dallas, TX." />
+  <meta
+    property="og:description"
+    content="Software engineer and technical builder based in Dallas, TX."
+  />
 </svelte:head>
 
 <div class="site-root">
