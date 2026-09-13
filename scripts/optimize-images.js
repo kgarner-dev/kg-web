@@ -6,8 +6,6 @@ import { join, extname, basename } from 'path'
 const DIR = './static/images'
 const QUALITY = 82
 
-// headshot only appears in the hero at max 200px display → 400px covers 2× retina
-// preview images appear in article headers (up to ~800px) → 900px covers most screens at 1×
 const SIZE_MAP = {
   'headshot': 400,
 }
@@ -36,11 +34,11 @@ for (const file of targets) {
 
   // only keep the smaller version
   if (after < before || file !== output) {
-    await unlink(input).catch(() => {})
+    await unlink(input).catch(() => { })
     const { rename } = await import('fs/promises')
     await rename(tmp, output)
     const pct = Math.round((1 - after / before) * 100)
-    console.log(`✓ ${file} → ${stem}.webp  (${(before/1024).toFixed(0)}KB → ${(after/1024).toFixed(0)}KB, ${pct}% smaller, max ${maxWidth}px)`)
+    console.log(`✓ ${file} → ${stem}.webp  (${(before / 1024).toFixed(0)}KB → ${(after / 1024).toFixed(0)}KB, ${pct}% smaller, max ${maxWidth}px)`)
   } else {
     await unlink(tmp)
     console.log(`— ${file} skipped (already optimal)`)

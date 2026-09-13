@@ -1,191 +1,369 @@
 <script lang="ts">
-  import Bento from "$lib/components/ui/Bento.svelte";
-  import ContentCard from "$lib/components/ui/ContentCard.svelte";
-  import ContactModal from "$lib/components/ui/ContactModal.svelte";
-  import type { PageData } from "./$types";
-
-  let { data }: { data: PageData } = $props();
-
-  let contactOpen = $state(false);
+  import Doorway from "$lib/components/ui/Doorway.svelte";
+  import FeaturedCard from "$lib/components/ui/FeaturedCard.svelte";
 </script>
 
 <svelte:head>
-  <title>Kaleb Garner | Product Architect & Technical Lead</title>
+  <title>Kaleb Garner | Engineering Lead</title>
 </svelte:head>
 
-<div class="page">
-  <!-- Hero -->
-  <Bento as="section">
-    <svelte:fragment slot="top">
-      <div class="avatar" aria-label="Profile photo">
-        <img src="/images/headshot.webp" alt="Headshot of Kaleb Garner" width="400" height="400" />
+<div class="homepage">
+  <div class="hero glass">
+    <div class="hero-left">
+      <div class="identity">
+        <img src="/images/headshot.webp" alt="Kaleb Garner" class="headshot" />
+        <span class="name">Kaleb Garner</span>
       </div>
-    </svelte:fragment>
-    <svelte:fragment slot="bottom">
-      <p class="bio">
-        Product architect, technical lead and content creator whose passion for
-        turning real-world problems into platform-level solutions has shaped how
-        engineering teams think, build, and operate. Convinced that the best
-        engineering advice rarely starts with code.
-      </p>
-    </svelte:fragment>
-  </Bento>
-
-  <!-- Recent content -->
-  <Bento as="section">
-    <svelte:fragment slot="top">
-      <div class="section-header">
-        <h2 class="section-label">Recent</h2>
-        <a href="/content" class="see-all">See all →</a>
+      <div class="headlines">
+        <h2>Engineering Lead</h2>
+        <h2>Systems & Platform Architecture</h2>
+        <h2>Speaker & Content Creator</h2>
       </div>
-    </svelte:fragment>
-    <svelte:fragment slot="bottom">
-      <ul class="card-list">
-        {#each data.recent as item (item.slug)}
-          <li>
-            <ContentCard {item} />
-          </li>
-        {/each}
-      </ul>
-    </svelte:fragment>
-  </Bento>
+    </div>
 
-  <!-- Connect -->
-  <Bento as="section" variant="accent">
-    <div class="connect-body">
-      <div class="connect-text">
-        <h2 class="connect-heading">Let's connect.</h2>
-        <p class="connect-sub">
-          Coffee chat, speaking opportunity, collaboration. Reach out and let's
-          talk.
+    <div class="hero-right">
+      <div class="socials">
+        <a
+          href="https://x.com/kalebgarneryoiu"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="X"
+        >
+          <i class="ph-bold ph-x-logo"></i>
+        </a>
+        <a
+          href="https://www.linkedin.com/in/kalebgarner/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn"
+        >
+          <i class="ph-bold ph-linkedin-logo"></i>
+        </a>
+        <a
+          href="https://github.com/kgarner-dev"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub"
+        >
+          <i class="ph-bold ph-github-logo"></i>
+        </a>
+        <a
+          href="https://www.youtube.com/@kgthedevgu"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="YouTube"
+        >
+          <i class="ph-bold ph-youtube-logo"></i>
+        </a>
+      </div>
+
+      <div class="hero-desc">
+        <p>
+          A space to learn more about me and keep up with everything that I am
+          actively working on.
         </p>
       </div>
-      <button class="connect-cta" onclick={() => (contactOpen = true)}
-        >Get in touch</button
-      >
     </div>
-  </Bento>
+  </div>
+
+  <div class="doorways">
+    <Doorway
+      headline="About Me"
+      text="Learn more about me"
+      href="/now"
+      icon="ph-user"
+    />
+    <Doorway
+      headline="Work"
+      text="Things that I have built"
+      href="/work"
+      icon="ph-briefcase"
+    />
+    <Doorway
+      headline="Blog"
+      text="Thoughts and opinions"
+      href="/blog"
+      icon="ph-article"
+    />
+    <Doorway
+      headline="Speaking"
+      text="Talks, videos, podcasts"
+      href="/speaking"
+      icon="ph-microphone"
+    />
+  </div>
+
+  <div class="featured glass">
+    <p class="featured-label">Featured Pages</p>
+    <div class="featured-grid">
+      <FeaturedCard
+        title="Engineering & Leadership Writing"
+        description="Thoughts on platform thinking, technical leadership, and building teams that actually ship."
+        image="/images/waves-3.webp"
+        tag="Writing"
+        href="/blog"
+      />
+      <FeaturedCard
+        title="Projects & Shipped Work"
+        description="A look at the products, platforms, and systems I've designed and built over the years."
+        image="/images/waves-7.webp"
+        tag="Work"
+        href="/work"
+      />
+      <FeaturedCard
+        title="Talks & Conference Appearances"
+        description="Speaking engagements, panels, and workshops on engineering culture and platform design."
+        image="/images/waves-11.webp"
+        tag="Speaking"
+        href="/speaking"
+      />
+      <FeaturedCard
+        title="Coffee Shop Coders"
+        description="The podcast and content series I co-host — conversations at the intersection of code and culture."
+        image="/images/waves-1.webp"
+        tag="Podcast"
+        href="https://www.youtube.com/@kgthedevgu"
+      />
+    </div>
+  </div>
+
+  <div class="more glass">
+    <p class="more-label">More Pages</p>
+    <div class="more-grid">
+      <FeaturedCard
+        title="Coffee Chat"
+        description="Book some time to chat!"
+        tag="Book a Call"
+        href="https://cal.com/kalebgarner"
+        icon="ph-calendar"
+      />
+      <FeaturedCard
+        title="Personal Projects"
+        description="Just some fun projects that reflect my personal life."
+        tag="Personal"
+        href="/interests"
+        icon="ph-baseball"
+      />
+      <FeaturedCard
+        title="My Setup"
+        description="The tools I use on a daily basis."
+        tag="Tools"
+        href="/setup"
+        icon="ph-laptop"
+      />
+    </div>
+  </div>
 </div>
 
-<ContactModal bind:open={contactOpen} />
-
 <style>
-  .page {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .avatar {
-    width: clamp(60px, 20vw, 200px);
-    aspect-ratio: 1;
-    border-radius: 14px;
-    overflow: hidden;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 
-  .bio {
-    font-size: 1.125rem;
-    line-height: 1.7;
-    color: var(--color-text-secondary);
-    margin: 0 0 1rem;
-  }
-
-  /* Recent */
-  .section-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    gap: 1rem;
-  }
-
-  .section-label {
-    font-family: "Manrope", sans-serif;
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--color-accent);
-    margin: 0;
-  }
-
-  .see-all {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--color-text-secondary);
-    text-decoration: none;
-    white-space: nowrap;
-    transition: color 0.15s ease;
-  }
-
-  .see-all:hover {
-    color: var(--color-accent);
-  }
-
-  .card-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  .homepage {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 1rem;
+    padding-bottom: 1rem;
   }
 
-  /* Connect */
-  .connect-body {
+  .hero {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    @media (min-width: 800px) {
+      flex-direction: row;
+      align-items: flex-end;
+      min-height: 65vh;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+
+      @media (min-width: 800px) {
+        flex: 2;
+      }
+    }
+
+    .hero-right {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      @media (min-width: 800px) {
+        flex: 1;
+        justify-content: flex-end;
+      }
+    }
+  }
+
+  .identity {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 0.75rem;
+    animation: fade-up 0.5s 0s ease-out both;
+
+    .headshot {
+      width: var(--img-profile);
+      height: var(--img-profile);
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .name {
+      font-size: var(--text-medium);
+      font-weight: 400;
+      color: var(--color-tertiary);
+      letter-spacing: 0.04em;
+    }
+  }
+
+  .headlines {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+
+    h2 {
+      margin: 0;
+      line-height: 1.05;
+      font-size: var(--text-large);
+
+      &:nth-child(1) {
+        animation: fade-up 0.5s 0.25s ease-out both;
+      }
+
+      &:nth-child(2) {
+        animation: fade-up 0.5s 0.45s ease-out both;
+      }
+
+      &:nth-child(3) {
+        animation: fade-up 0.5s 0.65s ease-out both;
+      }
+    }
+  }
+
+  .socials {
+    display: flex;
+    gap: 0.75rem;
+
+    a {
+      font-size: 1.5rem;
+      color: var(--color-font);
+      text-decoration: none;
+      line-height: 1;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: var(--color-accent);
+      }
+
+      &:nth-child(1) {
+        animation: fade-up 0.4s 0.85s ease-out both;
+      }
+
+      &:nth-child(2) {
+        animation: fade-up 0.4s 0.95s ease-out both;
+      }
+
+      &:nth-child(3) {
+        animation: fade-up 0.4s 1.05s ease-out both;
+      }
+
+      &:nth-child(4) {
+        animation: fade-up 0.4s 1.15s ease-out both;
+      }
+    }
+  }
+
+  .hero-desc {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    animation: fade-up 0.5s 1.35s ease-out both;
+
+    p {
+      color: var(--color-tertiary);
+      font-size: var(--text-body);
+      line-height: 1.25;
+      margin: 0;
+    }
+  }
+
+  .featured {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
     gap: 1.5rem;
-    flex-wrap: wrap;
-    padding: 0.5rem 0;
+
+    .featured-label {
+      font-size: var(--text-small);
+      font-weight: 600;
+      color: var(--color-font);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin: 0;
+    }
+
+    .featured-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+
+      @media (min-width: 600px) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      @media (min-width: 960px) {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
   }
 
-  .connect-text {
-    flex: 1;
-    min-width: 0;
+  .more {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    .more-label {
+      font-size: var(--text-small);
+      font-weight: 600;
+      color: var(--color-font);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin: 0;
+    }
+
+    .more-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+
+      @media (min-width: 600px) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
   }
 
-  .connect-heading {
-    font-family: "Manrope", sans-serif;
-    font-size: clamp(1.5rem, 3.5vw, 2rem);
-    font-weight: 800;
-    line-height: 1.1;
-    letter-spacing: -0.025em;
-    color: #fff;
-    margin: 0 0 0.375rem;
-  }
+  .doorways {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 
-  .connect-sub {
-    font-size: 0.9rem;
-    line-height: 1.55;
-    color: rgba(255, 255, 255, 0.75);
-    margin: 0;
-    max-width: 48ch;
-  }
-
-  .connect-cta {
-    font-family: "Manrope", sans-serif;
-    font-size: 0.875rem;
-    font-weight: 700;
-    padding: 0.625rem 1.5rem;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.2);
-    color: #fff;
-    border: 1px solid rgba(255, 255, 255, 0.35);
-    white-space: nowrap;
-    flex-shrink: 0;
-    cursor: pointer;
-    transition: background 0.15s ease;
-  }
-
-  .connect-cta:hover {
-    background: rgba(255, 255, 255, 0.3);
+    @media (min-width: 750px) {
+      flex-direction: row;
+    }
   }
 </style>
